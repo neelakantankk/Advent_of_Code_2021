@@ -1,4 +1,3 @@
-
 def parse_board(board):
     int_board = []
     for line in board.split("\n"):
@@ -7,7 +6,6 @@ def parse_board(board):
     return int_board
 
 def check_num(board,num):
-
     try:
         index = board.index(num)
         board[index] = 0
@@ -30,7 +28,6 @@ def is_complete_columns(board):
     return False
 
 def get_winners(boards):
-
     winners = []
     for index, board in enumerate(boards):
         if is_complete_rows(board) or is_complete_columns(board):
@@ -38,7 +35,6 @@ def get_winners(boards):
     return winners
 
 def main():
-
     with open('input','r') as infile:
         called_numbers = [int(x) for x in infile.readline().strip().split(",")]
         boards = [parse_board(x.strip()) for x in infile.read().split("\n\n")]
@@ -61,6 +57,7 @@ def main():
             break
 
     print(final_num * sum(winner))
+
 
 if __name__ == '__main__':
     main()
