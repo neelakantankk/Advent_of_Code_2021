@@ -45,8 +45,5 @@ def main():
 
     print(len(overlaps))
 
-
-
-
 if __name__ == '__main__':
     main()
