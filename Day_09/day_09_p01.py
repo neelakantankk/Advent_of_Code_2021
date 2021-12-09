@@ -43,9 +43,9 @@ def is_lower(pos,heights,max_rows,max_cols):
     
     for height in adjacent_heights:
         if heights[pos] >= height:
-            return (False,None)
+            return False
     
-    return (True,adjacents)  
+    return True
 
 def main():
 
@@ -59,18 +59,11 @@ def main():
         max_cols = len(infile.readline().strip())
     
     total = 0
-    pos_to_skip = set()
-
+    
     for pos, height in heights.items():
         
-        if pos in pos_to_skip:
-            continue
-
-        is_pos_lower, adjacents = is_lower(pos, heights, max_rows, max_cols)
-
-        if is_pos_lower:
-            total += (1 + height)
-            pos_to_skip.update(adjacents)
+        if is_lower(pos, heights, max_rows, max_cols):        
+            total += (1 + height)            
 
     print(total)
     STOP = perf_counter_ns()
