@@ -13,7 +13,7 @@ def main():
             coord,value = re.search(r'^.*?(x|y)=(\d+)',line.strip()).groups()
             instructions.append((coord,int(value)))
 
-    for coord,value in instructions:
+    for coord,value in instructions[:1]:
         if coord == 'x':
             points_to_add = {entry for entry in dots if entry[0] > value}
             dots.update({((2*value) - x_val,y_val) for x_val,y_val in dots if x_val>value})
