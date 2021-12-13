@@ -29,7 +29,7 @@ def main():
     for j in range(0,max_y+1):
         for i in range(0,max_x+1):
             if (i,j) in dots:
-                print("#",end='')
+                print("█",end='')
             else:
                 print(" ",end='')
         print()
