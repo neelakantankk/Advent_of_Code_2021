@@ -1,9 +1,10 @@
 from queue import Queue
+from time import perf_counter_ns
 
 def get_all_paths(graph,node,destination,repeat_lower):
     visited = set()
     path = list()
-    all_paths = list()
+    all_paths = set()
     repeat_visit = False
     def get_paths(graph, node,destination,visited,path, repeat_visit):
         if node in['start','end'] or (node.islower() and (node!=repeat_lower or repeat_visit == True)):
@@ -14,7 +15,7 @@ def get_all_paths(graph,node,destination,repeat_lower):
         path.append(node)
 
         if node == destination:
-            all_paths.append(path.copy())
+            all_paths.add(tuple(path))
         else:
             for next_node in graph[node]:
                 if next_node not in visited:
@@ -32,6 +33,7 @@ def get_all_paths(graph,node,destination,repeat_lower):
 
 
 def main():
+    START = perf_counter_ns()
     graph = dict()
     with open('input','r') as infile:
         for line in infile.readlines():
@@ -47,12 +49,15 @@ def main():
 
     lowers = {key for key in graph.keys() if key.islower()}
 
-    all_paths = list()
+    all_paths = set()
     for lower in lowers:
-        all_paths.extend(get_all_paths(graph, 'start','end',lower))
+        all_paths.update(get_all_paths(graph, 'start','end',lower))
 
-    all_paths = {tuple(path) for path in all_paths}
     print(len(all_paths))
+    STOP = perf_counter_ns()
+    INTERVAL = STOP - START
+
+    print(f"Time taken: {INTERVAL} ns --> {INTERVAL/(10**9):.2f} seconds --> {INTERVAL/(10**6):.2f} ms")
 
 
 
