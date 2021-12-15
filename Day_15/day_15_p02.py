@@ -10,11 +10,6 @@ def get_neighbors(node, graph):
             results.append(neighbor)
     return results
 
-def manhattan_distance(begin, end):
-    x1,y1 = begin
-    x2,y2 = end
-    return abs(x1-x2) + abs(y1 - y2)
-
 def find_lowest_risk(graph, begin,end):
     frontier = []
     heapq.heappush(frontier,(0,begin))
@@ -31,7 +26,7 @@ def find_lowest_risk(graph, begin,end):
             new_risk = risk_so_far[current] + graph[neighbor]
             if neighbor not in risk_so_far or new_risk < risk_so_far[neighbor]:
                 risk_so_far[neighbor] = new_risk
-                priority = new_risk + manhattan_distance(neighbor,end)
+                priority = new_risk
                 heapq.heappush(frontier,(priority,neighbor))
 
     return risk_so_far[end]
